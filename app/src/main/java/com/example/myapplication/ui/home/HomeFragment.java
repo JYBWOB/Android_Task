@@ -1,8 +1,12 @@
 package com.example.myapplication.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -12,9 +16,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.myapplication.R;
 import com.example.myapplication.ui.home.Course;
@@ -38,10 +44,16 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         this.inflater = inflater;
+
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
 
         root = inflater.inflate(R.layout.fragment_home, container, false);
+
+
+        setHasOptionsMenu(true);
+        Toolbar toolbar = root.findViewById(R.id.toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -122,5 +134,28 @@ public class HomeFragment extends Fragment {
                 }
             });
         }
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.toolbar, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.add_courses:
+//                Intent intent = new Intent(HomeFragment.this, AddCourseActivity.class);
+//                startActivityForResult(intent, 0);
+//                break;
+//            case R.id.menu_about:
+//                Intent intent1 = new Intent(this, AboutActivity.class);
+//                startActivity(intent1);
+//                break;
+//        }
+        return true;
     }
 }
