@@ -57,12 +57,12 @@ public class HomeFragment extends Fragment {
         Toolbar toolbar = root.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
+//        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
 //                textView.setText(s);
-            }
-        });
+//            }
+//        });
 
 
         leftViewLayout = root.findViewById(R.id.left_view_layout);
