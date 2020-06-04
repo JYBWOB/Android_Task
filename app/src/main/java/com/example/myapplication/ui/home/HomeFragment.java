@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.home;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.home.Course;
 
@@ -146,16 +148,24 @@ public class HomeFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.add_courses:
-//                Intent intent = new Intent(HomeFragment.this, AddCourseActivity.class);
-//                startActivityForResult(intent, 0);
-//                break;
-//            case R.id.menu_about:
-//                Intent intent1 = new Intent(this, AboutActivity.class);
-//                startActivity(intent1);
-//                break;
-//        }
+        switch (item.getItemId()) {
+            case R.id.add_courses:
+                Intent intent = new Intent(getActivity(), AddCourseActivity.class);
+                startActivityForResult(intent, 0);
+                break;
+        }
         return true;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
+            Course course = (Course) data.getSerializableExtra("course");
+            //创建课程表左边视图(节数)
+            createLeftView(course);
+            //创建课程表视图
+            createItemCourseView(course);
+        }
     }
 }

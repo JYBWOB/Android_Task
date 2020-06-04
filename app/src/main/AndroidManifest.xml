@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name="com.example.myapplication.ui.home.AddCourseActivity"
+            android:label="新建课程"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
             <intent-filter>
