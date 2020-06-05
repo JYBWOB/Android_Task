@@ -2,8 +2,9 @@ package com.example.myapplication.ui.home;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,17 +20,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.myapplication.MainActivity;
+import com.example.myapplication.DataBase.DatabaseHelper;
+import com.example.myapplication.DataBase.SQLManager;
 import com.example.myapplication.R;
-import com.example.myapplication.ui.home.Course;
+
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+
+    SQLManager sqlManager;
+    DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+    String username = "1710218";
+
 
     View root;
 
@@ -67,17 +74,30 @@ public class HomeFragment extends Fragment {
 
         leftViewLayout = root.findViewById(R.id.left_view_layout);
 
-        Course course = new Course(
-                "大学物理",
-                "李娟",
-                "B201",
-                1,
-                7,
-                9);
-        createLeftView(course);
-        createItemCourseView(course);
+        sqlManager = new SQLManager(root.getContext());
+
+//        Course course = new Course(
+//                "大学物理",
+//                "李娟",
+//                "B201",
+//                1,
+//                1,
+//                3);
+//        createLeftView(course);
+//        createItemCourseView(course);
+        loadData();
 
         return root;
+    }
+
+    //从数据库加载数据
+    private void loadData() {
+        ArrayList<Course> coursesList = sqlManager.getCourses(username);
+        //使用从数据库读取出来的课程信息来加载课程表视图
+        for (Course course : coursesList) {
+            createLeftView(course);
+            createItemCourseView(course);
+        }
     }
 
     //创建"第几节数"视图
@@ -102,7 +122,7 @@ public class HomeFragment extends Fragment {
     private void createItemCourseView(final Course course) {
         int getDay = course.getDay();
         if ((getDay < 1 || getDay > 7) || course.getStart() > course.getEnd()) {
-            Toast.makeText(getActivity(), "星期几没写对,或课程结束时间比开始时间还早~~", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "请检查输入信息~", Toast.LENGTH_LONG).show();
         }
         else {
             int dayId = 0;
@@ -130,8 +150,10 @@ public class HomeFragment extends Fragment {
             v.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    v.setVisibility(View.GONE);//先隐藏
-                    day.removeView(v);//再移除课程视图
+                    v.setVisibility(View.GONE);
+                    day.removeView(v);
+
+                    sqlManager.delCourse(username, course);
                     return true;
                 }
             });
@@ -162,10 +184,9 @@ public class HomeFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
             Course course = (Course) data.getSerializableExtra("course");
-            //创建课程表左边视图(节数)
             createLeftView(course);
-            //创建课程表视图
             createItemCourseView(course);
+            sqlManager.addCourse(username, course);
         }
     }
 }
