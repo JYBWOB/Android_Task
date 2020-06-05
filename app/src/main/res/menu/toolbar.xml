@@ -7,4 +7,10 @@
         android:icon="@drawable/add"
         android:title="添加/修改课程"
         app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/relogin"
+        android:icon="@drawable/relogin"
+        android:title="注销"
+        app:showAsAction="ifRoom"/>
 </menu>

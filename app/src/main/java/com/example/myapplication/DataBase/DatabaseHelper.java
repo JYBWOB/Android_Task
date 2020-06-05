@@ -32,5 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "class_end integer," +
                 "foreign key (username) " +
                 "references accounts(username))");
+        db.execSQL("create table autoLogin(" +
+                "username text)");
     }
 }

@@ -25,6 +25,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.myapplication.DataBase.DatabaseHelper;
 import com.example.myapplication.DataBase.SQLManager;
+import com.example.myapplication.Login;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
@@ -54,37 +55,22 @@ public class HomeFragment extends Fragment {
 
         this.inflater = inflater;
 
+        Intent intent = getActivity().getIntent();
+        username = intent.getStringExtra("username");
+
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
 
         root = inflater.inflate(R.layout.fragment_home, container, false);
 
-
         setHasOptionsMenu(true);
         Toolbar toolbar = root.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
-
 
         leftViewLayout = root.findViewById(R.id.left_view_layout);
 
         sqlManager = new SQLManager(root.getContext());
 
-//        Course course = new Course(
-//                "大学物理",
-//                "李娟",
-//                "B201",
-//                1,
-//                1,
-//                3);
-//        createLeftView(course);
-//        createItemCourseView(course);
         loadData();
 
         return root;
@@ -174,6 +160,11 @@ public class HomeFragment extends Fragment {
             case R.id.add_courses:
                 Intent intent = new Intent(getActivity(), AddCourseActivity.class);
                 startActivityForResult(intent, 0);
+                break;
+            case R.id.relogin:
+                sqlManager.delAutoLogin();
+                Intent intent1 = new Intent(getActivity(), Login.class);
+                startActivity(intent1);
                 break;
         }
         return true;

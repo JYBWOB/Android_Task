@@ -23,6 +23,17 @@ public class SQLManager {
         );
     }
 
+    public boolean isExist(String username, String password) {
+        SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(
+                "select * from accounts where username = ? and password = ? ",
+                new String[] {username, password}
+        );
+        if(cursor.getCount() > 0)
+            return true;
+        return false;
+    }
+
     public void addCourse(String username, Course course) {
         SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
         sqLiteDatabase.execSQL(
@@ -65,4 +76,28 @@ public class SQLManager {
         );
     }
 
+    public void delAutoLogin() {
+        SQLiteDatabase sqLiteDatabase =  databaseHelper.getWritableDatabase();
+        sqLiteDatabase.execSQL(
+                "delete from autoLogin"
+        );
+    }
+
+    public void setAutoLogin(String username) {
+        delAutoLogin();
+        SQLiteDatabase sqLiteDatabase =  databaseHelper.getWritableDatabase();
+        sqLiteDatabase.execSQL(
+                "insert into autoLogin(username) values(" + username + ")"
+        );
+    }
+
+    public String getAutoLogin() {
+        SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from autoLogin", null);
+        if (cursor.moveToFirst()) {
+            return cursor.getString(cursor.getColumnIndex("username"));
+        }
+        cursor.close();
+        return "N";
+    }
 }
