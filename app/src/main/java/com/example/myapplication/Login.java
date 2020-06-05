@@ -128,7 +128,7 @@ public class Login extends AppCompatActivity {
                         EditText username_text =
                                 (EditText) dialogView.findViewById(R.id.regUserName);
                         EditText password_text =
-                                (EditText) dialogView.findViewById(R.id.regUserName);
+                                (EditText) dialogView.findViewById(R.id.regPassWord);
                         final String username = username_text.getText().toString();
                         final String password = password_text.getText().toString();
 
