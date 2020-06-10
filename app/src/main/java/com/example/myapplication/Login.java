@@ -6,26 +6,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.myapplication.DataBase.SQLManager;
+import com.example.myapplication.DataBase.MD5;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class Login extends AppCompatActivity {
 
     SQLManager sqlManager = new SQLManager(Login.this);
+    MD5 md5 = new MD5();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +54,7 @@ public class Login extends AppCompatActivity {
             String password = ((TextView)findViewById(R.id.password)).getText().toString();
             CheckBox remPass = (CheckBox)findViewById(R.id.remPassword);
             CheckBox autoLogin = (CheckBox)findViewById(R.id.autoLogin);
+            password = MD5.getMD5(password);
 
             StringBuffer message = new StringBuffer();
             // 账号输入状态
@@ -131,8 +128,9 @@ public class Login extends AppCompatActivity {
                                 (EditText) dialogView.findViewById(R.id.regPassWord);
                         final String username = username_text.getText().toString();
                         final String password = password_text.getText().toString();
+                        String md5_password = MD5.getMD5(password);
 
-                        sqlManager.addUser(username, password);
+                        sqlManager.addUser(username, md5_password);
 
                         final AlertDialog.Builder normalDialog =
                                 new AlertDialog.Builder(Login.this);
