@@ -1,22 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.DashboardFragment">
+    xmlns:wheelSurfView="http://schemas.android.com/apk/res-auto"
+    android:background="#2196F3"
+    android:layout_gravity="center"
 
+    tools:context=".ui.dashboard.DashboardFragment">
     <TextView
-        android:id="@+id/text_dashboard"
+        android:id="@+id/chi_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="吃饭选择器"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:paddingTop="20dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/chi_title">
+
+    <com.cretin.www.wheelsruflibrary.view.WheelSurfView
+        android:id="@+id/wheelSurfView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        wheelSurfView:colors="@array/colors"
+        wheelSurfView:deses="@array/names"
+        wheelSurfView:goImg="@mipmap/node"
+        wheelSurfView:huanImg="@mipmap/yuanhuan"
+        wheelSurfView:icons="@array/icons"
+        wheelSurfView:minTimes="3"
+        wheelSurfView:textColor="#FF0000"
+        wheelSurfView:textSize="13sp"
+        wheelSurfView:type="1"
+        wheelSurfView:typenum="7"
+        wheelSurfView:vartime="75"
+        android:layout_gravity="center"
+        android:layout_below="@+id/chi_title"
+        android:gravity="center">
+    </com.cretin.www.wheelsruflibrary.view.WheelSurfView>
+</LinearLayout>
+
+</RelativeLayout>
