@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/chi_title">
 
-    <com.cretin.www.wheelsruflibrary.view.WheelSurfView
+    <com.example.myapplication.ui.dashboard.wheelsruflibrary.view.WheelSurfView
         android:id="@+id/wheelSurfView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,7 +41,7 @@
         android:layout_gravity="center"
         android:layout_below="@+id/chi_title"
         android:gravity="center">
-    </com.cretin.www.wheelsruflibrary.view.WheelSurfView>
+    </com.example.myapplication.ui.dashboard.wheelsruflibrary.view.WheelSurfView>
 </LinearLayout>
 
 </RelativeLayout>

@@ -19,8 +19,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.myapplication.R;
-import com.cretin.www.wheelsruflibrary.listener.RotateListener;
-import com.cretin.www.wheelsruflibrary.view.WheelSurfView;
+//import com.cretin.www.wheelsruflibrary.listener.RotateListener;
+//import com.cretin.www.wheelsruflibrary.view.WheelSurfView;
+import com.example.myapplication.ui.dashboard.wheelsruflibrary.listener.RotateListener;
+import com.example.myapplication.ui.dashboard.wheelsruflibrary.view.WheelSurfView;
 
 import java.util.Random;
 
@@ -30,8 +32,7 @@ public class DashboardFragment extends Fragment {
 
     private DashboardViewModel dashboardViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         wheelSurfView=root.findViewById(R.id.wheelSurfView1);
