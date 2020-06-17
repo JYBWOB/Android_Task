@@ -180,4 +180,5 @@ public class HomeFragment extends Fragment {
             sqlManager.addCourse(username, course);
         }
     }
+
 }
