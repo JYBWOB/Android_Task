@@ -53,7 +53,7 @@ public class SQLManager {
     public ArrayList<Course> getCourses(String username) {
         ArrayList<Course> coursesList = new ArrayList<>(); //课程列表
         SQLiteDatabase sqLiteDatabase =  databaseHelper.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from courses where username=" + username, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from courses where username=?", new String[]{username}, null);
         if (cursor.moveToFirst()) {
             do {
                 coursesList.add(new Course(
